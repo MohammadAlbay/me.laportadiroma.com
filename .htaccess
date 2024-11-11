@@ -1,0 +1,18 @@
+# Deny access to Config folder 
+<Directory "/config"> 
+    Order allow,
+    deny Deny from all 
+</Directory> 
+# Deny access to vendor folder 
+<Directory "/vendor"> 
+Order allow,
+deny Deny from all 
+</Directory> 
+<Directory "/app"> 
+Order allow,
+deny Deny from all 
+</Directory> 
+# Redirect all other requests to the public folder 
+RewriteEngine On 
+RewriteCond %{REQUEST_URI} !^/public/ 
+RewriteRule ^(.*)$ /public/$1
