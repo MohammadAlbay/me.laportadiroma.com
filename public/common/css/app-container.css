@@ -1,0 +1,11 @@
+/* body{
+    overflow: hidden;
+} */
+.app-container {
+    width: calc(100% - var(--MENU-WIDTH));
+    position: absolute;
+    top: var(--NAV-HEIGHT);
+    left: var(--MENU-WIDTH);
+    height: calc(100% - var(--NAV-HEIGHT));
+    overflow: auto;
+}

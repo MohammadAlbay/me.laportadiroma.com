@@ -334,8 +334,8 @@ class ComposerStaticInit589cc0f65c3aaa7d4e9024d545bc1974
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -509,9 +509,26 @@ class ComposerStaticInit589cc0f65c3aaa7d4e9024d545bc1974
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
+        'App\\Http\\Controllers\\CPanelController' => __DIR__ . '/../..' . '/app/Http/Controllers/CPanelController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
+        'App\\Http\\Controllers\\MainController' => __DIR__ . '/../..' . '/app/Http/Controllers/MainController.php',
+        'App\\Http\\Controllers\\MigrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/MigrationController.php',
+        'App\\Http\\Middleware\\SecureRoutes' => __DIR__ . '/../..' . '/app/Http/Middleware/SecureRoutes.php',
+        'App\\Http\\Middleware\\SimplePasswordAuth' => __DIR__ . '/../..' . '/app/Http/Middleware/SimplePasswordAuth.php',
+        'App\\Mail\\SendUserPassword' => __DIR__ . '/../..' . '/app/Mail/SendUserPassword.php',
+        'App\\Models\\AssetType' => __DIR__ . '/../..' . '/app/Models/AssetType.php',
+        'App\\Models\\BusinessBrand' => __DIR__ . '/../..' . '/app/Models/BusinessBrand.php',
+        'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
+        'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
+        'App\\Models\\RolePermission' => __DIR__ . '/../..' . '/app/Models/RolePermission.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\Services\\CPanelService' => __DIR__ . '/../..' . '/app/Services/CPanelService.php',
+        'App\\Services\\CommonServices' => __DIR__ . '/../..' . '/app/Services/CommonServices.php',
+        'App\\Services\\MigrationOnTheFlyService' => __DIR__ . '/../..' . '/app/Services/MigrationOnTheFlyService.php',
+        'App\\Services\\PasswordGeneratorService' => __DIR__ . '/../..' . '/app/Services/PasswordGeneratorService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
@@ -630,7 +647,12 @@ class ComposerStaticInit589cc0f65c3aaa7d4e9024d545bc1974
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
+        'Database\\Seeders\\BusinessBrand' => __DIR__ . '/../..' . '/database/seeders/BusinessBrand.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\Permission' => __DIR__ . '/../..' . '/database/seeders/Permission.php',
+        'Database\\Seeders\\Role' => __DIR__ . '/../..' . '/database/seeders/Role.php',
+        'Database\\Seeders\\RolePermission' => __DIR__ . '/../..' . '/database/seeders/RolePermission.php',
+        'Database\\Seeders\\User' => __DIR__ . '/../..' . '/database/seeders/User.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',

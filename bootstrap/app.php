@@ -12,6 +12,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+        //$middleware->add(\App\Http\Middleware\SimplePasswordAuth::class);
+        
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -1,0 +1,184 @@
+@import url('/common/css/icons.css');
+
+:root {
+    --NAV-HEIGHT: 3.5em;
+    --NAV-WIDTH: 100%;
+    --NAV-LEFT:17em;
+    --NAV-COLOR: rgb(136,221,172);
+    --NAV-EDGE-MARGIN: 0.25em;
+    --BASE-FONTS: Montserrat, Gulf;
+    --MENU-WIDTH:17em;
+}
+
+.nav-bar {
+    position: absolute;
+    top: 0px;   left: var(--NAV-LEFT);
+    width: calc(100% - var(--NAV-LEFT));    height: var(--NAV-HEIGHT);
+    background-color: var(--NAV-COLOR);
+    font-family: var(--BASE-FONTS);
+    user-select: none;
+}
+
+.nav-bar div.active-user {
+    position: absolute;  top: var(--NAV-EDGE-MARGIN);
+    right: var(--NAV-EDGE-MARGIN);    width: 4.5em;
+    height: 3em;    border-radius: 0.5em;
+    text-align: right;
+    transition: all 0.3s ease-out;
+    transform: scale(0.8);
+}
+.nav-bar div.active-user:hover {
+    background-color: hsl(120, 2%, 13%);
+}
+.nav-bar div.active-user:hover::after {
+    position: absolute;     top: 50%;
+    right: 3.3em;   content: "\2B9F";
+    width: 20px;    height: 20px;
+    transform: translateY(-50%);
+    color: rgb(245, 245, 245);
+}
+.nav-bar div.active-user:hover img {
+    width: 2.8em; height: 2.8em;
+    margin-top: 0.1em; margin-right: 0.1em;
+}
+.nav-bar div.active-user img {
+    width: 3em;     height: 3em;
+    border-radius: 50%;
+}
+.nav-menu .me-logo {
+    position: absolute; left: calc(var(--NAV-EDGE-MARGIN) - 0.7em);
+    top: var(--NAV-EDGE-MARGIN);     background-color: white;
+    width: 9.9em;    height:3em;
+    border-radius: 1em;
+    overflow: hidden;
+    transform: scale(0.8);
+}
+
+.me-logo img {
+    margin-left:0.5em;  width:60px; 
+    height: 100%;   border-right: 2px solid var(--NAV-COLOR);
+    padding-right:0.5em;
+}
+.me-logo b {
+    display: inline-block;  font-family: var(--BASE-FONTS); 
+    font-size: 30pt;    vertical-align:top; 
+    margin-top: 0.04em;
+}
+
+.nav-menu {
+    position: absolute; top: 0px;
+    left: 0px;  width: var(--MENU-WIDTH);
+    height: 100%;
+    background-color: rgb(250, 250, 250);
+    border-left: 1px solid var(--NAV-COLOR);
+    overflow-x: hidden;
+    user-select: none;
+}
+
+.nav-menu .top-bar {
+    width:100%;     height: var(--NAV-HEIGHT);
+    background-color: var(--NAV-COLOR);
+}
+
+
+.nav-menu .menu {
+    width: 100%;
+    height: auto;
+}
+
+.menu ul {
+    list-style-position: inside;
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+.menu > ul > li {
+    padding: 0.0em 0em;
+    width: 100%;    box-sizing: border-box;
+    margin: 0.2em 0em;
+    align-items: center;
+    text-indent: 10px;  font-family: var(--BASE-FONTS);
+    position: relative;     cursor: pointer;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    display: grid; 
+    grid-template-columns: 30px 1fr;
+    grid-template-rows: 3em auto;
+    height: 3em; /* Static height */
+    font-size: 10.5pt;
+
+}
+.menu > ul > li:hover {
+    background-color: rgb(240, 240, 240);
+}
+/* For single menu item */
+.menu > ul > li:not(:has(ul)) {
+}
+.menu > ul > li:has(ul)::after {
+    content: "\2B9E";
+    position: absolute;
+    top: calc(3em / 2 - 20px / 2); right: 10px;
+    color: rgb(110, 105, 105);;
+    width: 20px;    height: 20px;
+    display: inline-block;
+    transition: all 0.3s ease-out;
+}
+.menu > ul > li.open:has(ul)::after {
+    transform: rotate(90deg);
+    top: calc(3em / 2 - 20px / 2 - 3px);
+    color: rgb(45, 43, 43);
+}
+.menu > ul > li.open:has(ul):hover {background-color: transparent;}
+.menu > ul > li > i {
+    grid-column: 1;
+    grid-row: 1;
+}
+.menu > ul > li > b {
+    display: block;
+    grid-row: 1; 
+    grid-column: span 2;
+    width: 100%;
+    font-weight: normal;
+    margin-left:1em;
+    text-indent: 0px;
+    margin-left: 26px;
+}
+.menu > ul > li.tag::after {
+    position: absolute;     top: 50%;
+    right: 0.5em;     padding: 0.5em 0.6em 0.5em 0em;
+    height: 1em;      font-size: 10pt;
+    color: white;    border-radius: 1em;
+    background-color: rgb(10,10,10);    content: attr(tag);
+    z-index: 1;     transform: translateY(-50%);
+    overflow: hidden;   max-width: 10em;
+    text-align: center;
+
+}
+.menu > ul > li > ul {
+    display: block;
+    margin-top: 0.0em;
+    /* Span both columns */ grid-row: 2;
+    grid-column: 1 / -1;
+    border-top: 1px solid rgb(221, 219, 219);
+    
+}
+
+.menu > ul > li > ul > li {
+    padding: 0.6em 0em;
+    text-indent: 10px;
+    font-family: var(--BASE-FONTS);
+    font-size: 10pt;
+}
+
+.menu > ul > li > ul > li:hover {
+    background-color: rgb(230, 230, 230);
+}
+.menu > ul > li.open {
+    height: auto; 
+    /* Expand to show submenu */ 
+    overflow-y: auto;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 0.5em;
+}
+
+

@@ -1,0 +1,63 @@
+body {
+    background-color: rgb(246, 246, 246);
+    transition: all 0.4s ease-out;
+}
+.login-box {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(17, 187, 88, 0.5);
+    overflow: hidden;
+    border-radius: 2em;
+}
+
+.login-box > img {
+    width: 70%; height: auto;
+    max-height: 30vh;
+    filter: brightness(0) invert(1);
+    margin-top: 2em;
+    margin-left: 15%;
+}
+
+.login-box > .content {
+    margin-top: 1em;
+    width: 100%; height: 100%;
+    background-color: rgb(249, 249, 249);
+    border-top: 2px solid rgba(17, 187, 88, 0.9);
+    text-align: center;
+}
+
+.login-box > .content .title {
+    font-family: Gulf, Montserrat;
+    color: rgb(68, 65, 65);
+}
+
+.opt-input {
+    letter-spacing: 1em;
+    background-color: black;
+    color:white
+}
+
+.otp-input { 
+    font-family: monospace; /* Use a monospaced font for equal spacing */ 
+    font-size: 2em; /* Adjust the font size as needed */ 
+    letter-spacing: 1em; /* Adjust the spacing between characters */ 
+    text-align: center; /* Center the text */ 
+    width: 12em; /* Adjust the width to fit the number of characters */ 
+    padding: 0.5em; /* Add some padding for better appearance */ 
+    border: 1px solid #ccc; /* Add a border */ 
+    border-radius: 4px; /* Add rounded corners */ 
+    background: linear-gradient(to right, transparent 0%, transparent 10%, #ffcc00 10%, #ffcc00 20%, transparent 20%, transparent 30%, #ffcc00 30%, #ffcc00 40%, transparent 40%, transparent 50%, #ffcc00 50%, #ffcc00 60%, transparent 60%, transparent 70%, #ffcc00 70%, #ffcc00 80%, transparent 80%, transparent 90%, #ffcc00 90%, #ffcc00 100%); 
+    background-clip: text; 
+    color: transparent; }
+
+@media only screen and (max-width: 800px) {
+    .login-box > img {
+        width: 60%;
+        height: auto;
+        margin-left: 20%;
+    }
+}
