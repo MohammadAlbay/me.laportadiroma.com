@@ -34,26 +34,57 @@ class CPanelController extends Controller
         return $emailPasswordList;
     }
 
-
+    public function updateLocalJSON(Request $request) {
+        $emailPasswordList = $this->cpanelService->getEmailPasswordList(true, $this->acceptDomains, true);
+        $emailEntityCollection = [];
+        foreach ($emailPasswordList as $emailPassword) { 
+            $exploded = explode("@", $emailPassword["email"]);
+            $businessBrand = $exploded[1];
+            $fullname = explode(".", $exploded[0]);
+            $firstname = $fullname[0];
+            $lastname = count($fullname) > 1 ? $fullname[1] : "";
+            $emailEntityCollection[] = [
+                "id" => $emailPassword["id"],
+                "email" => $emailPassword["email"],
+                "password" => $emailPassword["password"],
+                "firstname" => ucfirst($firstname),
+                "lastname" => $lastname == "" ? "" : ucfirst($lastname),
+                "business-brand" => $businessBrand
+            ];
+        }
+        $path = storage_path()."/emails.json";
+        file_put_contents($path, json_encode($emailEntityCollection));
+        return "Updated";
+    }
     public function generateThenSaveEmails(Request $request) {
         set_time_limit(0);
-        $emailPasswordList = $this->cpanelService->getEmailPasswordDictionary(true, $this->acceptDomains);
-        $found = []; $new = [];
-
-        $laportadiroma_id = BusinessBrand::where('name', "La Porta Di Roma")->first() ?? null;
-        if($laportadiroma_id == null) {
-            throw new \Exception("Base Business name 'La Porta Di Roma' is missing. Please fix the issue and try again");
+        //$emailPasswordList = $this->cpanelService->getEmailPasswordDictionary(true, $this->acceptDomains);
+        $file = storage_path()."/emails.json";
+        if(!file_exists($file)) {
+            $this->updateLocalJSON($request);
+            $this->generateThenSaveEmails($request);
             return;
         }
-        $laportadiroma_id = $laportadiroma_id->id;
-        foreach ($emailPasswordList as $emailPassword) {
-            $email =$emailPassword['email'];
-            $password = $emailPassword['password'];
+        $emailPasswordList = json_decode(file_get_contents($file) , true);
+        $found = []; $new = [];
 
-            $names = explode(".", explode("@", $email)[0]);
-            $firstname = $names[0];
-            $lastname = count($names) > 1? $names[1] : "";
+        // $laportadiroma = BusinessBrand::where('name', "La Porta Di Roma")->first() ?? null;
+        // $holasaci = BusinessBrand::where('name', "Holasaci")->first() ?? null;
+        // if($laportadiroma == null) {
+        //     throw new \Exception("Base Business name 'La Porta Di Roma' is missing. Please fix the issue and try again");
+        // }
+        $laportadiroma = BusinessBrand::getLaPortaDiRoma();
+        $holasaci = BusinessBrand::getHolasaci();
+        
+        foreach ($emailPasswordList as $emailEntity) {
+            $email =$emailEntity['email'];
+            $password = $emailEntity['password'];
+
+            $firstname = $emailEntity["firstname"];
+            $lastname = $emailEntity["lastname"];
             
+            $businessBrand = $emailEntity["business-brand"];
+            //Log::info("Business brand : '$businessBrand' Holasaci: '$holasaci->domain' LPDR: $laportadiroma->domain");
             if(User::where('email', $email)->count() == 0) {
                 $user = User::create([
                     'email' => $email,
@@ -62,7 +93,8 @@ class CPanelController extends Controller
                     'birthdate' => now(),
                     'firstname' => $firstname,
                     'lastname' => $lastname,
-                    'business_brand_id' => $laportadiroma_id,
+                    'business_brand_id' => $businessBrand == $laportadiroma->domain ? $laportadiroma->id 
+                                        : ($businessBrand == $holasaci->domain ? $holasaci->id : null),
                     'role_id' => 2
                 ]);
 

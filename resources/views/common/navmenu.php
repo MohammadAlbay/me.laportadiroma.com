@@ -34,6 +34,12 @@
                         <i class="icon cloud-storage"></i>
                         <b>Storage</b>
                     </li>
+                    
+                    <!-- THis is just a temp menu item-->
+                    <li class="tag" tag="New" onclick="location.href = '/auth/logout';">
+                        <i class="icon cloud-storage"></i>
+                        <b>Logout</b>
+                    </li>
                 </ul>
             </div>
         </div>

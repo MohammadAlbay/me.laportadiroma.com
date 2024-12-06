@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
-class DashboardController extends Controller {
+class HolasaciController extends Controller {
     public function index(){
-        return view("dashboard.main.index");
+        return view("dashboard.holasaci.index");
     }
     
 }

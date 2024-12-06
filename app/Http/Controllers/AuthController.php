@@ -16,9 +16,13 @@ use Validator;
 
 class AuthController extends Controller {
     public function index(){
+        if(Auth::check()){
+            return redirect("/branch");
+        }
         return view("auth.login");
     }
     public function login(Request $request){
+
         $v = Validator($request->all(), [
             "login_email"=> "required",
             "login_password"=> "required",
@@ -42,7 +46,7 @@ class AuthController extends Controller {
 
         if (Auth::attempt($credentials, true)) {
             $request->session()->regenerate();
-            return redirect("/dashboard/");
+            return redirect('/branch');
         } 
         else 
             return redirect()->back()->with("error", "Failed to login. incorrect email and/or password");
@@ -134,7 +138,7 @@ class AuthController extends Controller {
         $otp = OTP::where('code', $otp_input)->first(); /* trying to fetch record from otp table  */
         if(!$otp || $otp->isExpired()) { /* check if invalid or used OTP code */
             
-            return Common::responseError($request, '/auth', "Invalid OTP Code");
+            return Common::responseError($request, redirect("/auth/login-otp")->with('email', $email_input), "Invalid OTP Code");
         }
 
         $otp->markAsUsed();
@@ -148,7 +152,7 @@ class AuthController extends Controller {
         if($this->internal_login($user))
             return Common::respons($request, redirect('/branch'), "Successfully logged in");
         else
-            return Common::responseError($request, '/auth',"Failed to log in");
+            return Common::responseError($request,  redirect("/auth/login-otp")->with('email', $email_input),"Failed to log in");
     }
 
     private function internal_login(User $user) {

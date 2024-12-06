@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->bigInteger('business_brand_id');
+            $table->bigInteger('business_brand_id')->nullable(true);
             $table->bigInteger('role_id');
             $table->timestamp("last_seen")->default(now());
             $table->date("birthdate")->default(now());

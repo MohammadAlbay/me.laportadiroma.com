@@ -9,3 +9,77 @@
     height: calc(100% - var(--NAV-HEIGHT));
     overflow: auto;
 }
+.app-container-overlay {
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    overflow: auto;
+    z-index: 5;
+    display: none;
+    background-color: white;
+}
+.app-container-overlay.show {
+    display: block;
+}
+
+.app-container-overlay .head,
+.app-container-overlay .body   {
+    width:100%;     position: relative;
+}
+
+.app-container-overlay .head {
+    height: 3em;
+    background-color: rgb(30, 30, 30);
+    overflow: hidden;
+}
+
+.app-container-overlay .head > .close-icon {
+    position: absolute;     right: 1em;
+    top: 50%;     width: 2.4em;     height: 2.4em;
+    transform: translateY(-50%);
+    max-width:2.4em; max-height: 2.4em;
+    cursor: pointer;    overflow: hidden;
+}
+.app-container-overlay .head > .close-icon:hover {
+    filter: grayscale(80%);
+}
+.app-container-overlay .head > .title {
+    right: 50%;     top: 50%;
+    position: absolute;
+    display: block;
+    max-width: 70%;
+    transform: translate(-50%, -50%);
+    font-size: 13pt;
+    font-family: Montserrat, Gulf;
+    color: white;
+}
+
+.app-container-overlay .body {
+    height: calc(100% - 3.4em);
+    width: calc(100% - 0.4em);
+    margin-top: 0px;
+    padding: 0.2em;
+    background-color: rgb(252, 252, 252);
+}
+.app-container-overlay.half .head {
+    background-color: rgb(214, 214, 214);
+}
+.app-container-overlay.half {width: 50%;}
+.app-container-overlay.full {width: 100%;}
+.app-container-overlay.half.shifted-right.show {animation: shiftright-half-appcontainer 0.4s ease-out forwards;}
+.app-container-overlay.full.shifted-right.show {animation: shiftright-full-appcontainer 0.4s ease-out forwards;}
+.app-container-overlay.shifted-right {
+    outline: 1000px solid rgba(56, 56, 56, 0.2);
+    transform: translateX(100%);
+}
+
+@keyframes shiftright-half-appcontainer {
+    0% {transform: translateX(100%); opacity: 3;}
+    100% {transform: translateX(50%); opacity: 1;}
+}
+@keyframes shiftright-full-appcontainer {
+    0% {transform: translateX(100%); opacity: 3;}
+    100% {transform: translateX(0%); opacity: 1;}
+}

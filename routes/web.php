@@ -25,6 +25,7 @@ Route::get('/hash/{key}', function($key) {
 Route::middleware(SimplePasswordAuth::class)->group(function () {
 
     Route::get('/list-emails', [\App\Http\Controllers\CPanelController::class, 'getEmailList']);
+    Route::get('/cache-emails', [\App\Http\Controllers\CPanelController::class, 'updateLocalJSON']);
     Route::get('/list-plain-emails', [\App\Http\Controllers\CPanelController::class, 'getEmailListPlainText']);
     Route::get('/generate-emails-from-origin', [\App\Http\Controllers\CPanelController::class, 'getEmailPasswordList']);
     Route::get('/generate-save', [\App\Http\Controllers\CPanelController::class, 'generateThenSaveEmails']);

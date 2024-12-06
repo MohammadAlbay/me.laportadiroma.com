@@ -41,7 +41,22 @@ class Elements {
 
         return Me;
     }
+
+    buttonStartLoader(button) {
+        if(button instanceof HTMLButtonElement)
+            button.classList.toggle("embed-loader-icon", true);
+        else if(button instanceof String)
+            document.querySelector(button).classList.toString("embed-loader-icon", true);
+    }
+    buttonEndLoader(button) {
+        if(button instanceof HTMLButtonElement)
+            button.classList.toggle("embed-loader-icon", false);
+        else if(button instanceof String)
+            document.querySelector(button).classList.toString("embed-loader-icon", false);
+    }
 }
+
+
 
 var elements = new Elements();
 
@@ -49,6 +64,8 @@ document.elements = elements;
 document.createChild = elements.createChild;
 document.addElement = elements.addElement;
 document.modifyElement = elements.modifyElement;
+document.startButtonLoader = elements.buttonStartLoader;
+document.endButtonLoader = elements.buttonEndLoader;
 
 
 
@@ -58,6 +75,7 @@ document.modifyElement = elements.modifyElement;
 |||                   By Eng Mohammad s. Albay - Software Engineer | IT             |||
 \*************************************************************************************/
 
+var ViewloaderInstances = [];
 class ViewLoader {
     static drop(...items) {
         for(let i = items.length-1; i>-1; i--) {
@@ -69,11 +87,14 @@ class ViewLoader {
         //     delete window[item];
         // }
     }
-    constructor(baseRoute, host = HTMLDivElement) {
+    constructor(baseRoute, host = HTMLDivElement, isTemp = false) {
         this.host = host;
         this.baseRoute = baseRoute;
         this.currentView = "";
+        this.previousView = "";
         this.currentViewName = "";
+        if(!isTemp)
+            this.index = ViewloaderInstances.push(this)-1;
     }
 
     setBaseRoute(baseRoute) {
@@ -81,6 +102,9 @@ class ViewLoader {
     }
     setHost(host) {
         this.host = host;
+    }
+    getHost() {
+        return this.host;
     }
     async loadScript(url, place) {
         /* create the script */
@@ -192,9 +216,9 @@ class ViewLoader {
             .forEach(element => element.remove());
     }
     initTheView() {
-        try{eval(`${this.currentViewName}.initialize();`);}
+        try{eval(`${this.currentViewName}.initialize(); ${this.currentViewName}.loader = this;`);}
         catch(e) {
-            console.error("ViewLoader.initTheView() Raised an error : "+e);
+            console.info("ViewLoader.initTheView() Raised an error : "+e);
         }
     }
     async load(view) {
@@ -209,21 +233,23 @@ class ViewLoader {
             /* load resource for head */
             await this.loadResources(head, "head");
             processProgress.setPercentage(50);
-            /* load resource for body */
-            await this.loadResources(body, "body");
-            processProgress.setPercentage(65);
-            this.initTheView();
-            processProgress.setPercentage(77);
+            
             /* add to the head */
             
             for (const e of head.children) {
                 document.head.appendChild(e);
             }
-            processProgress.setPercentage(80);
+            processProgress.setPercentage(65);
+            
             /* add to the body */
-            for (const e of body.children) {
-                this.host.appendChild(e);
-            }
+            const bodyElements = [...body.children].filter(e => e.tagName != "SCRIPT");
+            //console.log(bodyElements);
+            bodyElements.forEach(i => this.host.insertAdjacentElement("beforeEnd",i));
+            processProgress.setPercentage(77);
+            /* load resource for body */
+            await this.loadResources(body, "body");
+            processProgress.setPercentage(80);
+            this.initTheView();
             processProgress.setPercentage(100);
 
         } catch (error) {
@@ -231,8 +257,14 @@ class ViewLoader {
         }
     }
 
+    restoreHostByView() {
+        this.host = document.querySelector("div[view='"+this.currentView+"']");
+        //this.host = document.querySelector(`div[view="${this.currentView}"]`);
+    }
     async init(view) {
-        if(view == this.currentView) return;
+        if(this.currentView != "" && this.host == null) 
+            this.restoreHostByView();
+        if(view == this.currentView && this.host.children.length != 0) return;
         processProgress.setPercentage(0);
         let response = await fetcher.getText(`${this.baseRoute}${view}`);
         processProgress.setPercentage(20);
@@ -248,18 +280,55 @@ class ViewLoader {
             });
         } else {
             this.unload();
+            if(this.currentView != "") {
+                this.previousView = this.currentView;
+            }
             this.currentView = view;
             this.currentViewName = view.split('/').pop();
+            history.pushState({view:view, loaderIndex: this.index }, `${this.currentView}`, `#${this.currentViewName}`);
             if(this.currentView.match(/([.-])/gm)) {
                 this.currentViewName = this.currentViewName.replaceAll(/([.-])/gm, "_");
             }
             this.host.setAttribute("view", view);
             await this.load(response.result);
+
+            window.document.dispatchEvent(new Event("DOMContentLoaded", {
+                bubbles: true,
+                cancelable: true
+            }));
         }
+    }
+
+    moveBack() {
+        if(this.previousView != "")
+            this.init(this.previousView);
+        else
+            throw new Error("ViewLoader.moveBack() Raised an error: previousView is empty");
+    }
+
+    static blank(host) {
+        if(host == null) return;
+        
+        let viewName = host.getAttribute("view");
+        [...document.querySelectorAll(`*[for-view="${viewName}"]`)]
+            .forEach(element => element.remove());
+        host.replaceChildren();
     }
 }
 
-
+function cloneWithFunctions(obj) {
+    // Create a shallow clone of the object
+    let clone = Object.create(Object.getPrototypeOf(obj));
+  
+    // Copy all properties (including functions) to the new object
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        clone[key] = obj[key];
+      }
+    }
+  
+    return clone;
+  }
 
 
 class ProcessProgress {
@@ -299,7 +368,72 @@ window.addEventListener('DOMContentLoaded', e => {
             li.classList.toggle("open");
         });
     });
+    
+    window.addEventListener("keydown", ev => {
+        [...document.querySelectorAll("dialog")].forEach(d => {
+            console.log(ev.key);
+            if(ev.key == "Escape" ) {
+                if(d.classList.contains("dialog-open")) {
+                    d.classList.replace("dialog-open", "dialog-close");
+                }
+            }
+        })
+    });
+
+    [...document.querySelectorAll("*[close-dialog]")].forEach(ev => {
+
+        ev.addEventListener('click', c => {
+            let tempDialog = null;
+            if(ev.parentElement.tagName == "DIALOG")
+                tempDialog = ev.parentElement;
+            else if(ev.hasAttribute("dialog-id") && ev.getAttribute("dialog-id") != "") 
+                tempDialog = document.getElementById(ev.getAttribute("dialog-id"));
+    
+            tempDialog.classList.toggle("dialog-open", false);
+            tempDialog.classList.toggle("dialog-close", true);
+            // tempDialog.removeAttribute("open");
+            tempDialog.close();
+        });
+        
+    });
+
+    [...document.querySelectorAll(".dialog-overlay[for]")].forEach(el => {
+        let tempDialog = document.getElementById(el.getAttribute('for'));
+        if(tempDialog == null) return;
+        if(tempDialog.hasAttribute("allow-ignore")){
+            el.addEventListener('click', ev => {
+                var event = new KeyboardEvent('keydown', {
+                    key: 'Escape', // The key that was pressed
+                    code: 'Escape', // The physical key on the keyboard
+                    keyCode: 27, // The keyCode for the Escape key (optional)
+                    bubbles: true, // Allow the event to bubble up through the DOM
+                    cancelable: true // The event can be canceled
+                });
+                
+                // Dispatch the event on the document or any specific element
+                document.dispatchEvent(event);
+            });
+        }
+    });
+
+    [...document.querySelectorAll("*[open-dialog]")].forEach(ev => {
+        ev.addEventListener('click', c => {
+            let tempDialog = null;
+            if(ev.parentElement.tagName == "DIALOG")
+                tempDialog = ev.parentElement;
+            else if(ev.hasAttribute("dialog-id") && ev.getAttribute("dialog-id") != "") 
+                tempDialog = document.getElementById(ev.getAttribute("dialog-id"));
+    
+            tempDialog.classList.toggle("dialog-open", true);
+            tempDialog.classList.toggle("dialog-close", false);
+            tempDialog.showModal();
+            console.log("state changed");
+        });
+        
+    });
 });
+
+
 
 
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('base_route')->nullable(true)->default('/branch');
             $table->integer('floor')->nullable(true);
             $table->string('address')->nullable(true);
+            $table->string('domain');
             $table->timestamps();
         });
     }

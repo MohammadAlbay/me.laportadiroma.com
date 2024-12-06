@@ -44,7 +44,7 @@
                 </div>
 
                 <button class="login-button" type="submit" form="f1">Login</button><br><br>
-                <button class="login-button"
+                <button id="otp_login_button" class="login-button"
                     style="transform:scale(0.7);background-color:black"
                     onclick="redirectToOTPPage()">login using OTP code
                 </button>
@@ -57,13 +57,17 @@
     @include('common.error')
 
     <script>
+        var otp_login_button =document.getElementById('otp_login_button');
+
         async function redirectToOTPPage() {
+            document.startButtonLoader(otp_login_button);
             if (login_email.value == "") {
                 Swal.fire({
                     icon: 'error',
                     title: 'Business email required',
                     text: 'Input your business email address first to redirect you to OTP login page!'
                 });
+                document.endButtonLoader(otp_login_button);
                 return;
             }
 
@@ -74,7 +78,7 @@
                 },
                 wantJSON: true
             });
-            console.log(responsd);
+            //console.log(responsd);
             if (responsd.error != null) {
                 Swal.fire({
                     icon: 'error',
@@ -93,6 +97,7 @@
                 }
             }
 
+            document.endButtonLoader(otp_login_button);
         }
     </script>
 </body>

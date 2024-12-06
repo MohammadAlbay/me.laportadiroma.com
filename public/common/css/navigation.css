@@ -19,29 +19,39 @@
     user-select: none;
 }
 
-.nav-bar div.active-user {
+.nav-bar div.active-user {right: var(--NAV-EDGE-MARGIN);}
+.nav-bar div.icon {right: calc(var(--NAV-EDGE-MARGIN) + 3em + 1em);}
+.nav-bar div.active-user, div.icon {
     position: absolute;  top: var(--NAV-EDGE-MARGIN);
-    right: var(--NAV-EDGE-MARGIN);    width: 4.5em;
-    height: 3em;    border-radius: 0.5em;
+    height: 3em; width: 4.5em;
+    border-radius: 0.5em;
     text-align: right;
     transition: all 0.3s ease-out;
     transform: scale(0.8);
+    cursor: pointer;
 }
-.nav-bar div.active-user:hover {
+.nav-bar div.active-user:hover,
+.nav-bar div.icon:hover {
     background-color: hsl(120, 2%, 13%);
 }
-.nav-bar div.active-user:hover::after {
+.nav-bar div.icon:hover img {
+    filter: brightness(200%);
+}
+.nav-bar div.active-user:hover::after,
+.nav-bar div.icon:hover::after {
     position: absolute;     top: 50%;
     right: 3.3em;   content: "\2B9F";
     width: 20px;    height: 20px;
     transform: translateY(-50%);
     color: rgb(245, 245, 245);
 }
-.nav-bar div.active-user:hover img {
+.nav-bar div.active-user:hover img,
+.nav-bar div.icon:hover img {
     width: 2.8em; height: 2.8em;
     margin-top: 0.1em; margin-right: 0.1em;
 }
-.nav-bar div.active-user img {
+.nav-bar div.active-user img,
+.nav-bar div.icon img {
     width: 3em;     height: 3em;
     border-radius: 50%;
 }

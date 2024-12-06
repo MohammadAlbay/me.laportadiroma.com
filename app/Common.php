@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,11 +21,16 @@ class Common
             return $routeResponse;
     }
 
-    public static function responseError(Request $request, $route, $errors) {
+    public static function responseError(Request $request, RedirectResponse|string|null $route, $errors) {
         if($request->wantsJson() || $request->ajax())
             return response()->json(["State" => 1, "Code" => 1, "Message" => $errors]);
-        else
-            return $route == null ? redirect()->back()->with("error", $errors) 
-                : redirect($route)->with("error", $errors);
+        else {
+            if($route instanceof RedirectResponse)
+                return $route->with("error", $errors);
+            else if(is_string($route))
+                redirect($route)->with("error", $errors);
+            else
+                redirect()->back()->with("error", $errors);
+        }
     }
 }

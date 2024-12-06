@@ -21,15 +21,17 @@ class BusinessBrand extends Seeder
             'address' => "طرابلس, وسعاية البديري",
             'floor'=> "0",
             'base_route' => "/holasaci",
-            'profile' => ""
+            'profile' => "",
+            'domain' => "holasaci.com"
         ]);
 
         ModelsBusinessBrand::create([ /* id 2 */
             'name' => "La Porta Di Roma",
             'address' => "طرابلس, وسعاية البديري",
-            'base_route' => "/dashboard",
+            'base_route' => "/laportadiroma",
             'floor'=> "3",
-            'profile' => ""
+            'profile' => "",
+            'domain' => "laportadiroma.com"
         ]);
     }
 }

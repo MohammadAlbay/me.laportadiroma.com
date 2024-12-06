@@ -20,7 +20,7 @@ class CPanelService
         //Log::info("The host is ".$this->cpanelUrl);
     }
     
-    public function getEmailPasswordList($generate_passwords = false, $acceptedDomains)
+    public function getEmailPasswordList($generate_passwords = false, $acceptedDomains, $wantsJson = false)
     {
         $response = $this->client->request('GET', $this->cpanelUrl . '/execute/Email/list_pops', ['auth' => [$this->cpanelUser, $this->cpanelPassword],]);
         $data = json_decode($response->getBody(), true);
@@ -48,7 +48,7 @@ class CPanelService
                   
             }
         }
-        return json_encode($emailPasswordList);
+        return $wantsJson ? $emailPasswordList : json_encode($emailPasswordList);
     }
 
     public function getEmailAsText($acceptedDomains) {
