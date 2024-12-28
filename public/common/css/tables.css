@@ -1,0 +1,130 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--BASE-FONTS), sans-serif;
+    text-overflow: ellipsis;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    max-width: 250px;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1; 
+  }
+  
+  td a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  
+  td a:hover {
+    text-decoration: underline;
+  }
+  
+  td:has(.tag + .tag) > .tag {
+    margin:0.3em;
+  } 
+  /* Department Tags */
+  .tag {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .tag.sales {
+    background-color: #fce4b3;
+    color: #a67c00;
+  }
+  
+  .tag.accounting {
+    background-color: #d1f2eb;
+    color: #0e6655;
+  }
+  
+  .tag.hr {
+    background-color: #f5b7b1;
+    color: #943126;
+  }
+
+  .tag.marketing {
+    background-color: #ecd5f5;
+    color: #63196f;
+  } 
+ 
+  .tag.it {
+    background-color: #d6eaf8;
+    color: #21618c;
+  }
+
+  .tag.management {
+    background-color: #f9e79f;
+    color: #b7950b;
+  }
+
+  .tag.production {
+    background-color: #f5a7a7; 
+    color: #a00000;
+  }
+ 
+  .tag.rnd {
+    background-color: #caf5b1;
+    color: #439426;
+  }
+  
+  /* Upload Button */ 
+  .upload-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    font-size: 12px;
+    background-color: #8e44ad;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .upload-btn:hover {
+    background-color: #6c3483;
+  }
+  
+  /* Responsive Table */
+  @media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+  
+    thead {
+      display: none;
+    }
+  
+    tr {
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+    }
+  
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      
+    }
+  
+    td:before {
+      content: attr(data-label);
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }

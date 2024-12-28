@@ -25,7 +25,8 @@
                         <i class="icon assets"></i>
                         <b>Asset Inventory</b>
                         <ul >
-                            <li onclick='viewLoader.init("/create-asset-type");'>Create New Type</li>
+                            <li onclick='viewLoader.init("/asset-add-new");'>Add New</li>
+                            <li onclick='viewLoader.init("/asset-view");'>View Assets</li>
                             <li onclick="clicked()">Manage Inventory</li>
                             <li>Aquired Assets</li>
                         </ul>

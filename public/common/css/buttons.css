@@ -1,0 +1,99 @@
+button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 25px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: .3s;
+    outline: none
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: #fff;
+    border-color: #3498db
+}
+
+.btn-primary:hover {
+    background: #2980b9
+}
+
+.btn-primary:active {
+    background: #1f65a0
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: #fff;
+    border-color: #95a5a6
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d
+}
+
+.btn-secondary:active {
+    background: #616f70
+}
+
+.btn-inactive {
+    background: #bdc3c7;
+    color: #7f8c8d;
+    border-color: #bdc3c7
+}
+
+.btn-inactive:hover {
+    background: #bdc3c7
+}
+
+.btn-link, .btn-text {
+    background: none;
+    color: #3498db;
+    border: none;
+}
+.btn-link {text-decoration: underline}
+.btn-link:hover, .btn-text:hover {
+    color: #2980b9
+}
+
+.btn-link:active, .btn-text:hover {
+    color: #1f65a0
+}
+
+.btn-outline {
+    background: transparent;
+    color: #3498db;
+    border-color: #3498db
+}
+
+.btn-outline:hover {
+    background: #3498db;
+    color: #fff
+}
+
+.btn-outline:active {
+    background: #2980b9;
+    color: #fff
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 12px
+}
+
+.btn-large {
+    padding: 12px 24px;
+    font-size: 16px
+}
+
+@media(max-width:600px) {
+    button {
+        width: 100%;
+        font-size: 16px
+    }
+}

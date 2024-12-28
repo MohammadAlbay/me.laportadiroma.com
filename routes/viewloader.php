@@ -11,4 +11,6 @@ Route::name("view-loader.")->prefix("view-loader")->group(function () {
     Route::get("/create-asset-type", [MigrationController::class, "index"]);
     Route::get("/settings", [LaPortaDiRomaDashboardController::class, "displaySettings"]);
     Route::get("/asset-new-type", [AssetController::class, "dispayAssetNewTypeView"]);
+    Route::get("/asset-add-new", [AssetController::class, "dispayAssetAddNewView"]);
+    Route::get("/asset-view", [AssetController::class, "dispayAssetsView"]);
 })->middleware(\App\Http\Middleware\SecureRoutes::class);

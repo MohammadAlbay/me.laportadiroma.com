@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ @csrf_token()}}">
     <!-- External resource -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui@5.0.18/material-ui.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Internal js -->
@@ -18,7 +19,7 @@
     <link rel="stylesheet" href="/common/css/forms.css">
     <link rel="stylesheet" href="/common/css/navigation.css">
     <link rel="stylesheet" href="/common/css/app-container.css">
-    <title>Document</title>
+    <title>La Porta Di Roma - Dashboard</title>
 </head>
 
 <body>

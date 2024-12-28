@@ -10,4 +10,6 @@ Route::name("auth.")->prefix("auth")->group(function () {
     Route::get("/logout", [AuthController::class, "logout"])->name("logout")->middleware(\App\Http\Middleware\SecureRoutes::class);
     Route::post("/generate-otp", [AuthController::class, "generateOneTimePassword"]);
     Route::post("/consume-otp", [AuthController::class, "consumeOneTimePassword"]);
+
+    Route::get('/get-employees', [AuthController::class, "fetchEmployees"])->middleware(\App\Http\Middleware\SecureRoutes::class);
 });

@@ -1,24 +1,12 @@
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
-
-/* Document
-   ========================================================================== */
-
-/**
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in iOS.
- */
-
+@charset "UTF-8";
+@import url('./tables.css');
+:root {
+  --BASE-FONTS: Montserrat, Gulf;
+}
  html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
   }
-  
-  /* Sections
-     ========================================================================== */
-  
-  /**
-   * Remove the margin in all browsers.
-   */
   
   body {
     margin: 0;
@@ -360,14 +348,27 @@
     width: 100%;
   } 
   [w95] {
-    width: 95;
+    width: 95%;
   }
+  [margin-free] {margin: 0 auto;}
   [ml5] {margin-left: 5%;}
   [mr5] {margin-right: 5%;}
   [mt5] {margin-top: 5%;}
   [mb5] {margin-bottom: 5%;}
   [relative] {
       position: relative;
+  }
+  [clickable] {
+    cursor: pointer;
+  }
+  [blue] {
+    color: #1444be;
+  }
+  [blue-on-hover] {
+    transition: color 0.3s ease-out;
+  }
+  [blue-on-hover]:hover {
+    color: #1444be;
   }
   button.embed-loader-icon {position: relative;}
   button.embed-loader-icon:after {
@@ -471,8 +472,8 @@
       transform: translateY(0);
     }
   }
-  dialog > div {max-height: 450px; overflow-y: auto; outline: none; border: none;}
-  dialog > nav { height:2em; box-sizing: border-box;display:block;text-align: center;position: absolute;bottom: 0px;left: 0px;width: 100%; }
+  dialog > div {max-height: 450px; overflow-y: auto; outline: none; border: none; padding-bottom: 30px;}
+  dialog > nav { background-color: white; height:2em; box-sizing: border-box;display:block;text-align: center;position: absolute;bottom: 0px;left: 0px;width: 100%; }
   dialog > nav > button {
     padding: 0.2em 0.4em; 
     margin: 0.3em 0.5em 0px 0.5em;
@@ -489,3 +490,80 @@
   dialog > nav > button[secondary]:hover {color: rgb(13, 45, 116);}
   dialog > nav > button[disabled]:hover {color: rgb(134, 140, 134);}
   dialog > nav > button[danger]:hover {color: rgb(139, 11, 30);}
+
+  
+
+  .color-red { color: #f44336 !important; } .color-pink { color: #e91e63 !important; } .color-purple { color: #9c27b0 !important; } .color-deep-purple { color: #673ab7 !important; } .color-indigo { color: #3f51b5 !important; } .color-blue { color: #2196f3 !important; } .color-light-blue { color: #03a9f4 !important; } .color-cyan { color: #00bcd4 !important; } .color-teal { color: #009688 !important; } .color-green { color: #4caf50 !important; } .color-light-green { color: #8bc34a !important; } .color-lime { color: #cddc39 !important; } .color-yellow { color: #ffeb3b !important; } .color-amber { color: #ffc107 !important; } .color-orange { color: #ff9800 !important; } .color-deep-orange { color: #ff5722 !important; } .color-brown { color: #795548 !important; } .color-grey { color: #9e9e9e !important; } .color-blue-grey { color: #607d8b !important; }
+
+ 
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto 1fr; /* First column resizable, second column fills remaining space */
+    gap: 10px;
+    height: auto;
+    padding: 10px;
+    transition: grid-template-columns 0.3s ease; /* Smooth transition for layout changes */
+  }
+  .grid-container > * {
+    position: relative;
+    background-color: transparent;
+    border-radius: 0.5em;
+  }
+  .grid-container > div:first-child {
+    border: 1px solid #ccc;
+    padding: 20px;
+    resize: horizontal; /* Allows horizontal resizing */
+    overflow: auto; /* Handles overflow content */
+    /* min-width: 150px; */ /* Prevents the first column from shrinking too much */
+    /* max-width: 80vw; */ /* Limits the maximum width for the first column */
+  }
+  
+  .grid-container > div:last-child {
+    border: 1px solid #ccc;
+    padding: 20px;
+    height: 100%; /* Ensures the second column fills available height */
+    overflow: hidden;
+    display: block;
+  }
+  
+  /* When the second column should be hidden */
+  .grid-container.no-second-column {
+    grid-template-columns: 1fr; /* Make first column take full width */
+  }
+  
+  .grid-container.no-second-column > div:last-child {
+    display: none; /* Hide the second column */
+  }
+  
+  /* Responsiveness for smaller screens */
+  @media screen and (max-width: 768px) {
+    .grid-container {
+      grid-template-columns: 1fr; /* Stack columns vertically on small screens */
+    }
+    
+    .grid-container > div:first-child {
+      resize: none; /* Disable resizing on small screens */
+    }
+  }
+
+.labeled-div {
+    margin-top: 2em;
+    padding: 0.5em;
+    border: 1px solid rgb(190, 181, 181);
+    box-sizing: border-box;
+    border-radius: 0.5em;
+    position: relative;
+}
+.labeled-div::before {
+  position: absolute; top: -0.6em;   left: 2em;
+  font-size: 10pt;
+  content: attr(title);
+  background-color: white;
+  width: auto; height: 1.5em;
+  color: rgb(88, 87, 87); padding: 0px 1em;
+}
+/* Hide .asset-fields if it has no child elements */
+.labeled-div:empty {
+    display: none;
+}

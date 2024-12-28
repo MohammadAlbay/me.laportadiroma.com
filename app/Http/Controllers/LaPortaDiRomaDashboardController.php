@@ -16,7 +16,5 @@ class LaPortaDiRomaDashboardController extends Controller {
         return view("dashboard.laportadiroma.settings");
     }
 
-    public function createNewAssetType(Request $request) {
-        $validator = Validator::make($request->all(), [], []);
-    }
+    
 }

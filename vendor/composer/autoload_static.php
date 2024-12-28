@@ -334,8 +334,8 @@ class ComposerStaticInit589cc0f65c3aaa7d4e9024d545bc1974
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -509,17 +509,23 @@ class ComposerStaticInit589cc0f65c3aaa7d4e9024d545bc1974
     );
 
     public static $classMap = array (
+        'App\\Common' => __DIR__ . '/../..' . '/app/Common.php',
+        'App\\Http\\Controllers\\AssetController' => __DIR__ . '/../..' . '/app/Http/Controllers/AssetController.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
+        'App\\Http\\Controllers\\BranchController' => __DIR__ . '/../..' . '/app/Http/Controllers/BranchController.php',
         'App\\Http\\Controllers\\CPanelController' => __DIR__ . '/../..' . '/app/Http/Controllers/CPanelController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
-        'App\\Http\\Controllers\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/DashboardController.php',
+        'App\\Http\\Controllers\\HolasaciController' => __DIR__ . '/../..' . '/app/Http/Controllers/HolasaciController.php',
+        'App\\Http\\Controllers\\LaPortaDiRomaDashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/LaPortaDiRomaDashboardController.php',
         'App\\Http\\Controllers\\MainController' => __DIR__ . '/../..' . '/app/Http/Controllers/MainController.php',
         'App\\Http\\Controllers\\MigrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/MigrationController.php',
         'App\\Http\\Middleware\\SecureRoutes' => __DIR__ . '/../..' . '/app/Http/Middleware/SecureRoutes.php',
         'App\\Http\\Middleware\\SimplePasswordAuth' => __DIR__ . '/../..' . '/app/Http/Middleware/SimplePasswordAuth.php',
+        'App\\Mail\\OTPServiceMail' => __DIR__ . '/../..' . '/app/Mail/OTPServiceMail.php',
         'App\\Mail\\SendUserPassword' => __DIR__ . '/../..' . '/app/Mail/SendUserPassword.php',
         'App\\Models\\AssetType' => __DIR__ . '/../..' . '/app/Models/AssetType.php',
         'App\\Models\\BusinessBrand' => __DIR__ . '/../..' . '/app/Models/BusinessBrand.php',
+        'App\\Models\\OTP' => __DIR__ . '/../..' . '/app/Models/OTP.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
         'App\\Models\\RolePermission' => __DIR__ . '/../..' . '/app/Models/RolePermission.php',

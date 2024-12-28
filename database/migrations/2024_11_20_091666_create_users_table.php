@@ -23,6 +23,7 @@ return new class extends Migration
             $table->timestamp("last_seen")->default(now());
             $table->date("birthdate")->default(now());
             $table->enum("gender", ["Male", "Female"])->default("Male");
+            $table->enum("state", ["Active", "Inactive"])->default("Active");
             $table->rememberToken();
             $table->timestamps();
 

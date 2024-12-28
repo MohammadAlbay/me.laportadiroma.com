@@ -26,7 +26,25 @@ class BusinessBrand extends Seeder
         ]);
 
         ModelsBusinessBrand::create([ /* id 2 */
-            'name' => "La Porta Di Roma",
+            'name' => "La Porta Di Roma (LPDR)",
+            'address' => "طرابلس, وسعاية البديري",
+            'base_route' => "/laportadiroma",
+            'floor'=> "3",
+            'profile' => "",
+            'domain' => "laportadiroma.com"
+        ]);
+
+        ModelsBusinessBrand::create([ /* id 3 */
+            'name' => "Shared Services Center (SSC)",
+            'address' => "طرابلس, وسعاية البديري",
+            'base_route' => "/laportadiroma",
+            'floor'=> "3",
+            'profile' => "",
+            'domain' => "laportadiroma.com"
+        ]);
+
+        ModelsBusinessBrand::create([ /* id 4 */
+            'name' => "Supply And Procurement (S&P)",
             'address' => "طرابلس, وسعاية البديري",
             'base_route' => "/laportadiroma",
             'floor'=> "3",

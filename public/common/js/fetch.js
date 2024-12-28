@@ -64,7 +64,7 @@ class Fetch {
      */
     async getJSON(route) {
         try {
-            let result = await (await fetch(`${this.domain}${route}`)).json();
+            let result = await (await fetch(`${this.domain}${route}`, {headers: {"Content-Type": "application/json", "Accept": "application/json"},})).json();
             return { error: null, result: result };
         } catch (e) {
             console.error("Fetch:getJSON() Raised an error: " + e);

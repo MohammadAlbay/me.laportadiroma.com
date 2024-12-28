@@ -163,4 +163,9 @@ class AuthController extends Controller {
         }
         return true;
     }
+
+
+    public function fetchEmployees(Request $request) {
+        return Common::respons($request, null, User::where('state', 'Active')->where('lastname', '!=', "")->orderBy('firstname')->orderBy('lastname')->get());
+    }
 }
